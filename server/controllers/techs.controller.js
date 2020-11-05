@@ -1,7 +1,12 @@
 const Tech = require("../models/Tech.model");
 
 module.exports.getAll = function (req, res) {
-  Tech.find()
+  const doc = {};
+
+  if (req.query.hasOwnProperty("name")) {
+    doc.name = req.query.name;
+  }
+  Tech.find(doc)
     .then((techs) => res.json(techs))
     .catch((err) => res.json(err));
 };
